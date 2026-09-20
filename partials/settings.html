@@ -1,0 +1,178 @@
+      <div class="tab-page" id="tab-settings">
+        <div class="light-wrap" style="max-width: 880px;">
+
+          <!-- Advanced Subpage Quick Access Jump Buttons -->
+          <section class="panel">
+            <div class="panel-head"><h3>Advanced Subpage Quick Access</h3></div>
+            <div class="panel-body">
+              <p class="hint" style="margin:0 0 12px 0;">Jump directly to specialized subpages from here without cluttering the main menu bar:</p>
+              <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:10px;">
+                <button class="btn-block btn-accent" data-goto-tab="light" type="button"> Light Control</button>
+                <button class="btn-block btn-accent" data-goto-tab="wh-db" type="button"> Warehouse Database</button>
+                <button class="btn-block btn-accent" data-goto-tab="warehouse" type="button"> Warehouse Config</button>
+                <button class="btn-block btn-accent" data-goto-tab="debug" type="button"> Debug Console</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Desktop Sidebar Visibility Controls -->
+          <section class="panel">
+            <div class="panel-head"><h3>Desktop / Sidebar Visibility Options</h3></div>
+            <div class="panel-body" style="display:flex; flex-direction:column; gap:12px;">
+              <p class="hint" style="margin:0;">Control which optional subpages appear in the desktop sidebar menu. (Note: These subpages are hidden from phone/vertical screens by default to prevent overcrowding).</p>
+
+              <div style="display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" id="showLightControlCb" style="width:16px; height:16px; accent-color:var(--cyan); cursor:pointer;">
+                <label for="showLightControlCb" style="font-weight:600; cursor:pointer; color:var(--text);">Show Light Control subpage in desktop sidebar</label>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" id="showWhDbCb" style="width:16px; height:16px; accent-color:var(--cyan); cursor:pointer;">
+                <label for="showWhDbCb" style="font-weight:600; cursor:pointer; color:var(--text);">Show Warehouse Database subpage in desktop sidebar</label>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" id="showWhConfigCb" style="width:16px; height:16px; accent-color:var(--cyan); cursor:pointer;">
+                <label for="showWhConfigCb" style="font-weight:600; cursor:pointer; color:var(--text);">Show Warehouse Config subpage in desktop sidebar</label>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" id="showDebugConsoleCb" style="width:16px; height:16px; accent-color:var(--cyan); cursor:pointer;">
+                <label for="showDebugConsoleCb" style="font-weight:600; cursor:pointer; color:var(--text);">Show Debug Console subpage in desktop sidebar</label>
+              </div>
+            </div>
+          </section>
+
+          <!-- Picklist & Task Settings -->
+          <section class="panel">
+            <div class="panel-head"><h3>Picklist &amp; Task Settings</h3></div>
+            <div class="panel-body">
+              <div class="field">
+                <label for="picklistTimeoutInput">Activated Task Timeout (Minutes)</label>
+                <input type="number" id="picklistTimeoutInput" value="10" min="1" max="1440" style="width: 140px;">
+                <p class="hint">Active picklists/putaway tasks will automatically turn off lights and time out if not completed within this duration (Default: 10 mins).</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Connection Manager -->
+          <section class="panel">
+            <div class="panel-head"><h3>Connection · Server Broker Gateway</h3></div>
+            <div class="panel-body">
+              <div class="field">
+                <label for="host">Host</label>
+                <input type="text" id="host" value="192.168.3.81" placeholder="mqtt://192.168.3.81 or localhost">
+              </div>
+              <div class="row2">
+                <div class="field">
+                  <label for="port">Port</label>
+                  <input type="number" id="port" value="8083">
+                </div>
+                <div class="field">
+                  <label for="wsPath">WS path</label>
+                  <input type="text" id="wsPath" value="/mqtt">
+                </div>
+              </div>
+              <button class="btn-block" id="checkBtn" type="button" style="margin-bottom:8px;">Check</button>
+              <div class="check-result" id="checkResult"></div>
+
+              <div class="row2" style="margin-top:10px;">
+                <div class="field">
+                  <label for="clientId">Client ID</label>
+                  <input type="text" id="clientId" value="SmartLightServer">
+                </div>
+                <div class="field">
+                  <label for="username">Username</label>
+                  <input type="text" id="username" value="test">
+                </div>
+              </div>
+              <div class="row2">
+                <div class="field">
+                  <label for="password">Password</label>
+                  <input type="password" id="password" value="123456">
+                </div>
+                <div class="field">
+                  <label for="subTopic">Subscribe Topic</label>
+                  <input type="text" id="subTopic" value="#">
+                </div>
+              </div>
+
+              <button class="btn-block btn-primary" id="startBtn" type="button" style="margin-top:10px;">CONNECT SERVER TO BROKER</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head"><h3>AP Base Station Information</h3></div>
+            <div class="panel-body">
+              <div class="kv">
+                <div class="k">ID</div><div class="v empty" id="apId">—</div>
+                <div class="k">IP</div><div class="v empty" id="apIp">—</div>
+                <div class="k">MAC</div><div class="v empty" id="apMac">—</div>
+                <div class="k">Firmware</div><div class="v empty" id="apFw">—</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Custom Icons Config -->
+          <section class="panel">
+            <div class="panel-head"><h3>Tag Config · Custom Icons</h3></div>
+            <div class="panel-body" style="display:flex; flex-direction:column; gap:16px;">
+              <p class="hint" style="margin:0;">Upload custom image icons for each tag type. Uploaded icons are stored in the database and visible across all connected browsers.</p>
+
+              <!-- Area Tag Icon -->
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; background:var(--panel-2); border:1px solid var(--line-soft); border-radius:8px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <div id="iconPreview-AreaTag" style="width:40px; height:40px; border-radius:6px; background:#0E1316; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden;"></div>
+                  <div>
+                    <div style="font-weight:700; color:var(--text);">Area Tags</div>
+                    <div class="hint" style="margin:0;">Icon for Area Tag cards</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <input type="file" id="fileInput-AreaTag" accept="image/*" style="display:none;">
+                  <button class="btn-sm btn-primary" id="btnUpload-AreaTag" type="button">Upload Image</button>
+                  <button class="btn-sm btn-danger" id="btnClear-AreaTag" type="button">Clear Image</button>
+                </div>
+              </div>
+
+              <!-- Shelf Tag Icon -->
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; background:var(--panel-2); border:1px solid var(--line-soft); border-radius:8px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <div id="iconPreview-ShelfTag" style="width:40px; height:40px; border-radius:6px; background:#0E1316; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden;"></div>
+                  <div>
+                    <div style="font-weight:700; color:var(--text);">Shelf Tags</div>
+                    <div class="hint" style="margin:0;">Icon for Shelf Tag cards</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <input type="file" id="fileInput-ShelfTag" accept="image/*" style="display:none;">
+                  <button class="btn-sm btn-primary" id="btnUpload-ShelfTag" type="button">Upload Image</button>
+                  <button class="btn-sm btn-danger" id="btnClear-ShelfTag" type="button">Clear Image</button>
+                </div>
+              </div>
+
+              <!-- Item Tag Icon -->
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; background:var(--panel-2); border:1px solid var(--line-soft); border-radius:8px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <div id="iconPreview-ItemTag" style="width:40px; height:40px; border-radius:6px; background:#0E1316; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden;"></div>
+                  <div>
+                    <div style="font-weight:700; color:var(--text);">Item Tags</div>
+                    <div class="hint" style="margin:0;">Icon for Item Tag cards</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <input type="file" id="fileInput-ItemTag" accept="image/*" style="display:none;">
+                  <button class="btn-sm btn-primary" id="btnUpload-ItemTag" type="button">Upload Image</button>
+                  <button class="btn-sm btn-danger" id="btnClear-ItemTag" type="button">Clear Image</button>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

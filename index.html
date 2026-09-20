@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Light Automation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- SheetJS XLSX Library for Native Excel Import/Export -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="shell">
+
+  <header class="topbar">
+    <div class="brand">
+      <button class="brand-mark" id="brandHomeBtn" type="button" title="Go to Home" style="border:none; cursor:pointer;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#062622" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9" stroke="#062622" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="brand-text">
+        <div class="t1">Smart Light Automation</div>
+      </div>
+    </div>
+    <div class="topbar-status">
+      <span class="dot" id="apDot"></span>
+      <span id="apText">Base station status</span>
+      <span class="status-sep" aria-hidden="true"></span>
+      <span class="dot" id="statusDot"></span>
+      <span id="statusText">MQTT broker status</span>
+      <button class="btn-sm btn-primary" id="topbarConnectBtn" type="button" style="margin-left:4px; padding:4px 8px; font-size:11px;">Connect</button>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <!-- Navigation Tabs (Vertical Mobile Bottom Bar / Desktop Sidebar) -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="home" id="homeTabBtn" type="button">Home</button>
+      <button class="tab-btn mobile-hide-tab" data-tab="light" id="lightTabBtn" type="button">Light Control</button>
+      <button class="tab-btn" data-tab="wh-stock" type="button">Warehouse Stock</button>
+      <button class="tab-btn" data-tab="wh-inventory" type="button">Inventory</button>
+      <button class="tab-btn" data-tab="wh-transactions" type="button">Stock Transactions</button>
+      <button class="tab-btn mobile-hide-tab" data-tab="wh-db" id="whDbTabBtn" type="button">Warehouse Database</button>
+      <button class="tab-btn mobile-hide-tab" data-tab="warehouse" id="whConfigTabBtn" type="button" style="display:none;">Warehouse Config</button>
+      <button class="tab-btn mobile-hide-tab" data-tab="debug" id="debugTabBtn" type="button" style="display:none;">Debug Console</button>
+      <button class="tab-btn" data-tab="settings" type="button">Settings</button>
+    </nav>
+
+    <div class="tab-content-wrap">
+      <div id="home-partial"></div>
+      <div id="light-partial"></div>
+      <div id="warehouse-partial"></div>
+      <div id="settings-partial"></div>
+    </div>
+  </div>
+</div>
+
+<div id="modals-partial"></div>
+
+<script type="module">
+  const partials = ['home', 'light', 'warehouse', 'settings', 'modals'];
+  await Promise.all(partials.map(async (name) => {
+    const response = await fetch(`partials/${name}.html`);
+    if (!response.ok) throw new Error(`Failed to load partial: ${name}`);
+    document.getElementById(`${name}-partial`).outerHTML = await response.text();
+  }));
+  await import('./js/app.js');
+</script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+      <!-- ===================== LIGHT CONTROL ===================== -->
+      <div class="tab-page" id="tab-light">
+        <div class="light-wrap">
+
+          <!-- Group control -->
+          <section class="panel">
+            <div class="panel-head"><h3>Group Light Control</h3></div>
+            <div class="panel-body">
+              <div class="lg-row">
+                <div class="lg-colors">
+                  <label class="chip-color" id="optRed">
+                    <input type="checkbox" id="colorRed">
+                    <span class="dot-color red"></span>RED
+                  </label>
+                  <label class="chip-color" id="optGreen">
+                    <input type="checkbox" id="colorGreen">
+                    <span class="dot-color green"></span>GREEN
+                  </label>
+                  <label class="chip-color" id="optBlue">
+                    <input type="checkbox" id="colorBlue">
+                    <span class="dot-color blue"></span>BLUE
+                  </label>
+                </div>
+                <div class="lg-toggles">
+                  <label class="lg-toggle">
+                    <span class="switch switch-sm"><input type="checkbox" id="flashToggle" checked><span class="slider"></span></span>
+                    Flash
+                  </label>
+                  <label class="lg-toggle">
+                    <span class="switch switch-sm"><input type="checkbox" id="beepToggle" checked><span class="slider"></span></span>
+                    Beep
+                  </label>
+                </div>
+                <div class="lg-preview">
+                  <span class="swatch-sm" id="colorSwatchBig" style="background:#3A4148;"></span>
+                  <span id="colorCombo">No color</span>
+                  <span class="cp-val">Color:<span id="colorValue">0</span></span>
+                </div>
+                <button class="btn-primary btn-toggle-light" id="lightToggleBtn" type="button" disabled>TOGGLE LIGHT GROUP</button>
+              </div>
+              <div class="light-status" id="lightStatus">Connect broker to enable.</div>
+              <p class="hint" style="margin:6px 0 0;">Publishes to <code class="inline">/estation/7301A67/recv</code>, affecting every strip in group.</p>
+            </div>
+          </section>
+
+          <!-- Light strip toolbar -->
+          <div class="strip-toolbar">
+            <h3>Light Strips & Tags</h3>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <button class="btn-ghost btn-sm" id="exportJsonBtn" type="button" title="Export JSON backup">Export JSON</button>
+              <button class="btn-ghost btn-sm" id="importJsonBtn" type="button" title="Import JSON backup">Import JSON</button>
+              <input type="file" id="importFileInput" accept=".json" style="display:none;">
+              <button class="btn-primary btn-sm" id="toggleAddLsBtn" type="button">+ Add Light Strip</button>
+            </div>
+          </div>
+
+          <!-- Add / Edit Light Strip (Expandable Reactive Panel) -->
+          <div class="expandable-panel" id="lsFormPanel">
+            <div class="expandable-inner">
+              <section class="panel" style="margin-bottom: 2px;">
+                <div class="panel-head">
+                  <h3 id="lsFormTitle">Add Light Strip</h3>
+                  <div style="display:flex; gap:6px;">
+                    <button class="btn-sm btn-ghost" id="lsClearBtn" type="button" style="color:var(--amber);">Clear Entry</button>
+                    <button class="btn-sm btn-ghost" id="lsCancelBtn" type="button">Cancel</button>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row2">
+                    <div class="field">
+                      <label for="lsTagType">Tag type</label>
+                      <select id="lsTagType">
+                        <option value="AreaTag">AreaTag</option>
+                        <option value="ShelfTag">ShelfTag</option>
+                        <option value="ItemTag" selected>ItemTag</option>
+                      </select>
+                    </div>
+                    <div class="field">
+                      <label for="lsTagID">Tag ID</label>
+                      <div class="input-with-actions">
+                        <input type="text" id="lsTagID" placeholder="e.g. AD1E000E9EEB">
+                        <div class="input-actions-inside">
+                          <button class="btn-field-icon btn-scan-qr" data-scan-for="lsTagID" type="button" title="Scan QR / Barcode">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 20h3v1h-3z"/></svg>
+                          </button>
+                          <button class="btn-field-icon btn-clear-x" data-clear-field="lsTagID" type="button" title="Clear Tag ID">✕</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row2">
+                    <div class="field">
+                      <label for="lsTagRef">Tag Reference</label>
+                      <div class="input-with-actions">
+                        <input type="text" id="lsTagRef" placeholder="e.g. Soap SKU1">
+                        <div class="input-actions-inside">
+                          <button class="btn-field-icon btn-scan-qr" data-scan-for="lsTagRef" type="button" title="Scan QR / Barcode">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 20h3v1h-3z"/></svg>
+                          </button>
+                          <button class="btn-field-icon btn-clear-x" data-clear-field="lsTagRef" type="button" title="Clear Tag Reference">✕</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="lsAreaID">Area ID</label>
+                      <div class="input-with-actions">
+                        <input type="text" id="lsAreaID">
+                        <div class="input-actions-inside">
+                          <button class="btn-field-icon btn-scan-qr" data-scan-for="lsAreaID" type="button" title="Scan QR / Barcode">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 20h3v1h-3z"/></svg>
+                          </button>
+                          <button class="btn-field-icon btn-clear-x" data-clear-field="lsAreaID" type="button" title="Clear Area ID">✕</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row2">
+                    <div class="field">
+                      <label for="lsShopID">Shop ID</label>
+                      <div class="input-with-actions">
+                        <input type="text" id="lsShopID">
+                        <div class="input-actions-inside">
+                          <button class="btn-field-icon btn-scan-qr" data-scan-for="lsShopID" type="button" title="Scan QR / Barcode">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 20h3v1h-3z"/></svg>
+                          </button>
+                          <button class="btn-field-icon btn-clear-x" data-clear-field="lsShopID" type="button" title="Clear Shop ID">✕</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="lsMaterialID">Material ID</label>
+                      <div class="input-with-actions">
+                        <input type="text" id="lsMaterialID">
+                        <div class="input-actions-inside">
+                          <button class="btn-field-icon btn-scan-qr" data-scan-for="lsMaterialID" type="button" title="Scan QR / Barcode">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM17 17h4v4h-4zM14 20h3v1h-3z"/></svg>
+                          </button>
+                          <button class="btn-field-icon btn-clear-x" data-clear-field="lsMaterialID" type="button" title="Clear Material ID">✕</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="lsDescription">Description</label>
+                    <input type="text" id="lsDescription" placeholder="e.g. Shampoo, aisle 4">
+                  </div>
+
+                  <div class="field">
+                    <label>Default color</label>
+                    <div class="lg-colors">
+                      <label class="chip-color" id="lsOptRed">
+                        <input type="checkbox" id="lsColorRed">
+                        <span class="dot-color red"></span>RED
+                      </label>
+                      <label class="chip-color" id="lsOptGreen">
+                        <input type="checkbox" id="lsColorGreen">
+                        <span class="dot-color green"></span>GREEN
+                      </label>
+                      <label class="chip-color" id="lsOptBlue">
+                        <input type="checkbox" id="lsColorBlue">
+                        <span class="dot-color blue"></span>BLUE
+                      </label>
+                      <span class="lg-preview" style="margin-left:6px;">
+                        <span class="swatch-sm" id="lsColorSwatch" style="background:#3A4148;"></span>
+                        <span class="cp-val">Color:<span id="lsColorValue">0</span></span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="field" style="margin-bottom:0;">
+                    <div class="lg-toggles" style="gap:20px;">
+                      <label class="lg-toggle">
+                        <span class="switch switch-sm"><input type="checkbox" id="lsDefaultFlash"><span class="slider"></span></span>
+                        Default flash
+                      </label>
+                      <label class="lg-toggle">
+                        <span class="switch switch-sm"><input type="checkbox" id="lsDefaultBeep"><span class="slider"></span></span>
+                        Default beep
+                      </label>
+                    </div>
+                  </div>
+
+                  <button class="btn-block btn-primary" id="lsAddBtn" type="button" style="margin-top:14px;">ADD LIGHT STRIP</button>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- Filter, Search, Sort & Batch Toolbar -->
+          <div class="filter-sort-bar">
+            <div class="bar-group" style="flex:1; min-width:180px;">
+              <label for="searchLightStrips">Search:</label>
+              <input type="text" id="searchLightStrips" placeholder="Search Tag ID, Ref, Material ID..." style="padding:5px 8px; font-size:11.5px;">
+            </div>
+            <div class="bar-group">
+              <label for="filterTagType">Filter:</label>
+              <select id="filterTagType">
+                <option value="ALL">All Tag Types</option>
+                <option value="AreaTag">AreaTag</option>
+                <option value="ShelfTag">ShelfTag</option>
+                <option value="ItemTag">ItemTag</option>
+              </select>
+            </div>
+            <div class="bar-group">
+              <label for="sortBy">Sort By:</label>
+              <select id="sortBy">
+                <option value="MANUAL">Manual Order</option>
+                <option value="tagId">Tag ID</option>
+                <option value="tagRef">Tag Reference</option>
+                <option value="areaId">Area ID</option>
+                <option value="shopId">Shop ID</option>
+                <option value="materialId">Material ID</option>
+              </select>
+              <button class="btn-sm btn-ghost" id="sortDirBtn" type="button" title="Toggle ASC/DESC">ASC</button>
+            </div>
+            <div class="bar-group batch-actions">
+              <label style="cursor:pointer;"><input type="checkbox" id="selectAllCb" style="vertical-align:middle;"> Select All</label>
+              <button class="btn-sm btn-accent" id="batchEditBtn" type="button" disabled title="Requires multiple tags selected">Batch Edit</button>
+              <button class="btn-sm btn-accent" id="batchActivateBtn" type="button">Batch Activate</button>
+              <button class="btn-sm btn-primary" id="batchTestBtn" type="button">Batch Test</button>
+              <button class="btn-sm btn-danger" id="batchStopBtn" type="button">Batch Stop</button>
+              <button class="btn-sm btn-danger" id="batchDeleteBtn" type="button">Batch Delete</button>
+            </div>
+          </div>
+
+          <!-- Light strip list -->
+          <div class="strip-list" id="lightStripList">
+            <div class="empty-strip-hint">No light strips added yet. Click "+ Add Light Strip" to begin.</div>
+          </div>
+
+        </div>
+      </div>

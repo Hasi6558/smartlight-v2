@@ -1,0 +1,88 @@
+      <!-- ===================== HOME ===================== -->
+      <div class="tab-page active" id="tab-home">
+        <div class="home-wrap">
+
+          <div class="strip-toolbar">
+            <div>
+              <h3 style="font-size:14px;">Home</h3>
+              <p class="hint" style="margin:2px 0 0;">Create and manage Picklists (outbound) and Putaway Lists (inbound) for the warehouse.</p>
+            </div>
+          </div>
+
+          <!-- Create Picklist / Create Putaway List Launcher Icons -->
+          <div class="home-launcher-row">
+            <button class="home-launcher-btn" id="btnOpenCreatePicklist" type="button">
+              <span class="home-launcher-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/>
+                  <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+                  <path d="M8.5 12.5h4M8.5 15.5h4"/>
+                  <circle cx="17" cy="17" r="4.2" fill="var(--panel)" stroke="var(--cyan)"/>
+                  <path d="M17 15.2v3.6M15.2 17h3.6" stroke="var(--cyan)"/>
+                </svg>
+              </span>
+              <span class="home-launcher-label">Create Picklist</span>
+              <span class="home-launcher-sub">Subtract stock · outbound</span>
+            </button>
+
+            <button class="home-launcher-btn" id="btnOpenCreatePutaway" type="button">
+              <span class="home-launcher-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 8 12 3l9 5v9l-9 5-9-5Z"/>
+                  <path d="M3 8l9 5 9-5M12 13v8"/>
+                  <circle cx="17" cy="17" r="4.2" fill="var(--panel)" stroke="var(--green)"/>
+                  <path d="M17 15.2v3.6M15.2 17h3.6" stroke="var(--green)"/>
+                </svg>
+              </span>
+              <span class="home-launcher-label">Create Putaway List</span>
+              <span class="home-launcher-sub">Add stock · inbound (GRN)</span>
+            </button>
+          </div>
+
+          <!-- Picklist / Putaway List Log -->
+          <!-- Picklist / Putaway List Log with Subpage Navigation -->
+          <section class="panel">
+            <div class="panel-head" style="flex-wrap:wrap; gap:10px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button class="btn-sm btn-accent" id="btnSubtabToday" type="button">Today's Lists</button>
+                <button class="btn-sm btn-ghost" id="btnSubtabHistory" type="button">History</button>
+                <button class="btn-sm btn-ghost" id="btnToggleCompletedToday" type="button" style="margin-left:6px; color:var(--text-dim);">Show Completed/Cancelled</button>
+              </div>
+
+              <!-- History Date Selector (Only shown on History subpage) -->
+              <div id="historyDateFilterWrap" style="display:none; align-items:center; gap:6px; font-size:11.5px;">
+                <label for="historyDateInput" style="color:var(--text-dim);">Select Date:</label>
+                <input type="date" id="historyDateInput" style="padding:4px 6px; font-size:11.5px;">
+                <button class="btn-sm btn-ghost" id="btnResetHistoryDate" type="button">Show All Dates</button>
+              </div>
+
+              <!-- Date Range Export Toolbar -->
+              <div style="margin-left:auto; display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:11.5px;">
+                <input type="date" id="exportStartDate" style="padding:3px 6px; font-size:11px;">
+                <span style="color:var(--text-faint);">to</span>
+                <input type="date" id="exportEndDate" style="padding:3px 6px; font-size:11px;">
+                <button class="btn-sm btn-ghost" id="btnExportPicklistsExcel" type="button" style="color:var(--cyan);">Export Range Excel</button>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div id="listsContainer" style="display:flex; flex-direction:column; gap:10px;">
+                <div class="empty-strip-hint">No Picklists or Putaway Lists created yet.</div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      <button class="template-drawer-toggle" id="btnToggleTemplates" type="button" aria-expanded="false">
+        <span>Templates</span><span aria-hidden="true">‹</span>
+      </button>
+      <aside class="template-drawer" id="templateDrawer" aria-hidden="true">
+        <div class="template-drawer-head">
+          <h3>Saved Templates</h3>
+          <button class="btn-sm btn-ghost" id="btnCloseTemplates" type="button">✕</button>
+        </div>
+        <div class="template-drawer-body" id="templatesContainer">
+          <div class="empty-strip-hint">No templates saved yet.</div>
+        </div>
+      </aside>
